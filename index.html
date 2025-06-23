@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio Science des Données – Soline</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #2c3e50;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+      min-height: 100vh;
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 2rem 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+      opacity: 0.3;
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .header h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .header .subtitle {
+      font-size: 1.3rem;
+      opacity: 0.9;
+      font-weight: 300;
+    }
+
+    /* Navigation */
+    .nav {
+      background: #34495e;
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .nav-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 0 2rem;
+    }
+
+    .nav-item {
+      color: white;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .nav-item:hover, .nav-item.active {
+      background: #3498db;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+    }
+
+    /* Content */
+    .content {
+      padding: 3rem 2rem;
+    }
+
+    .section {
+      margin-bottom: 4rem;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease;
+    }
+
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      color: #2c3e50;
+      position: relative;
+      padding-bottom: 1rem;
+    }
+
+    .section h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 2px;
+    }
+
+    /* Intro Section */
+    .intro {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      padding: 3rem;
+      border-radius: 20px;
+      margin-bottom: 3rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    .intro p {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+      text-align: justify;
+    }
+
+    /* Compétences PN */
+    .competences-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .competence-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      border-left: 5px solid;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .competence-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+    .competence-card.collecter { border-left-color: #e74c3c; }
+    .competence-card.traiter { border-left-color: #f39c12; }
+    .competence-card.analyser { border-left-color: #3498db; }
+    .competence-card.valoriser { border-left-color: #2ecc71; }
+    .competence-card.assurer { border-left-color: #9b59b6; }
+    .competence-card.communiquer { border-left-color: #1abc9c; }
+
+    .competence-card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      color: #2c3e50;
+    }
+
+    .competence-card p {
+      color: #7f8c8d;
+      line-height: 1.6;
+    }
+
+    /* Métiers buttons */
+    .metiers-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .metier-btn {
+      flex: 1;
+      min-width: 200px;
+      border: none;
+      border-radius: 15px;
+      padding: 1.5rem 2rem;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: white;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .metier-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .metier-btn:hover::before {
+      left: 100%;
+    }
+
+    .metier-btn[data-role="analyst"] { 
+      background: linear-gradient(135deg, #fd974f 0%, #e67e22 100%);
+    }
+    .metier-btn[data-role="scientist"] { 
+      background: linear-gradient(135deg, #4079ef 0%, #2980b9 100%);
+    }
+    .metier-btn[data-role="engineer"] { 
+      background: linear-gradient(135deg, #36bda5 0%, #16a085 100%);
+    }
+
+    .metier-btn.active {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    /* Projects */
+    .projects {
+      display: none;
+    }
+
+    .projects.visible {
+      display: block;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+
+    .project-card {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+    .project-image {
+      width: 100%;
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    .project-image::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, rgba(0,0,0,0.3), transparent);
+    }
+
+    .project-content {
+      padding: 2rem;
+    }
+
+    .project-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      color: #2c3e50;
+    }
+
+    .project-card .tools {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .tool-tag {
+      background: #ecf0f1;
+      color: #2c3e50;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .project-card p {
+      color: #7f8c8d;
+      line-height: 1.6;
+    }
+
+    /* Project Detail */
+    .project-detail {
+      display: none;
+      background: white;
+      border-radius: 15px;
+      padding: 3rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    .project-detail.visible {
+      display: block;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #3498db;
+      text-decoration: none;
+      margin-bottom: 2rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .back-btn:hover {
+      color: #2980b9;
+      transform: translateX(-5px);
+    }
+
+    .project-detail h3 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      color: #2c3e50;
+    }
+
+    .detail-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 2rem;
+    }
+
+    .detail-text {
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+
+    .detail-image {
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    .detail-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .competences-liees {
+      background: #f8f9fa;
+      padding: 2rem;
+      border-radius: 10px;
+      margin-top: 2rem;
+    }
+
+    .competences-liees h4 {
+      margin-bottom: 1rem;
+      color: #2c3e50;
+    }
+
+    .competences-tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .competence-tag {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    /* Stage Section */
+    .stage-content {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      padding: 3rem;
+      border-radius: 20px;
+      margin-bottom: 3rem;
+    }
+
+    .stage-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-top: 2rem;
+    }
+
+    .stage-info h4 {
+      color: #2c3e50;
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+    }
+
+    .stage-info p {
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+    }
+
+    /* Perspectives Section */
+    .perspectives {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 3rem;
+      border-radius: 20px;
+      text-align: center;
+    }
+
+    .perspectives h3 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .perspectives-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .perspective-card {
+      background: rgba(255,255,255,0.1);
+      padding: 2rem;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+    }
+
+    .perspective-card h4 {
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 2rem;
+      }
+      
+      .nav-content {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .metiers-buttons {
+        flex-direction: column;
+      }
+      
+      .detail-content,
+      .stage-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .content {
+        padding: 2rem 1rem;
+      }
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-in {
+      animation: fadeInUp 0.6s ease forwards;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <h1>Soline</h1>
+        <p class="subtitle">Étudiante BUT 2 Science des Données</p>
+      </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav">
+      <div class="nav-content">
+        <a href="#accueil" class="nav-item active">Accueil</a>
+        <a href="#competences" class="nav-item">Compétences</a>
+        <a href="#projets" class="nav-item">Projets</a>
+        <a href="#stage" class="nav-item">Stage</a>
+        <a href="#perspectives" class="nav-item">Perspectives</a>
+      </div>
+    </nav>
+
+    <div class="content">
+      <!-- Section Accueil -->
+      <section id="accueil" class="section visible">
+        <div class="intro">
+          <h2>Présentation</h2>
+          <p>
+            Étudiante en 2ᵉ année de <strong>BUT Science des Données à l'IUT de Vannes</strong>, je suis passionnée par l'exploitation, l'analyse et la valorisation des données dans des contextes variés. Cette formation pluridisciplinaire mêle informatique, statistiques et visualisation de données, avec une approche pratique à travers des projets concrets appelés SAÉ (Situations d'Apprentissage et d'Évaluation).
+          </p>
+          <p>
+            En 2ᵉ année, j'ai choisi le parcours <strong>« Exploration et Modélisation Statistique (EMS) »</strong>, qui se concentre sur l'analyse approfondie et la modélisation des données. Cette spécialisation me permet d'approfondir mes compétences en statistiques avancées et en machine learning.
+          </p>
+          <p>
+            Actuellement, je réalise un stage chez <strong>Devoteam</strong>, en mission chez <strong>L'Oréal</strong>, où j'applique mes compétences sur des problématiques réelles d'entreprise, notamment en migration et transformation de données.
+          </p>
+          <p>
+            Ce portfolio présente les compétences que j'ai développées à travers les <strong>trois métiers clés de la data</strong> : 
+            <span style="color: #fd974f; font-weight: bold;">Data Analyst</span>, 
+            <span style="color: #4079ef; font-weight: bold;">Data Scientist</span>, et 
+            <span style="color: #36bda5; font-weight: bold;">Data Engineer</span>.
+          </p>
+        </div>
+      </section>
+
+      <!-- Section Compétences -->
+      <section id="competences" class="section">
+        <h2>Compétences du Programme National</h2>
+        <p style="margin-bottom: 2rem; font-size: 1.1rem; text-align: center;">
+          Le BUT Science des Données s'articule autour de 6 compétences fondamentales que j'ai développées à travers les SAÉ et mon stage.
+        </p>
+        
+        <div class="competences-grid">
+          <div class="competence-card collecter">
+            <h3>🔍 Collecter</h3>
+            <p>Collecter des données en respectant les contraintes techniques, économiques, temporelles et réglementaires. Maîtrise des bases de données, APIs, et techniques de web scraping.</p>
+          </div>
+          
+          <div class="competence-card traiter">
+            <h3>⚙️ Traiter</h3>
+            <p>Traiter des données pour les rendre exploitables. Nettoyage, transformation, intégration et préparation des données avec R, Python et SQL.</p>
+          </div>
+          
+          <div class="competence-card analyser">
+            <h3>📊 Analyser</h3>
+            <p>Analyser des données pour extraire de la connaissance. Statistiques descriptives et inférentielles, modélisation, machine learning avec R et Python.</p>
+          </div>
+          
+          <div class="competence-card valoriser">
+            <h3>💎 Valoriser</h3>
+            <p>Valoriser des données par la visualisation et la communication. Création de dashboards interactifs avec Power BI, ggplot2, et outils de data visualization.</p>
+          </div>
+          
+          <div class="competence-card assurer">
+            <h3>🛡️ Assurer</h3>
+            <p>Assurer la qualité des données et des traitements. Validation, contrôle qualité, documentation et respect des bonnes pratiques.</p>
+          </div>
+          
+          <div class="competence-card communiquer">
+            <h3>💬 Communiquer</h3>
+            <p>Communiquer efficacement avec les données. Restitution orale et écrite, adaptation du discours aux différents publics, storytelling avec les données.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section Projets -->
+      <section id="projets" class="section">
+        <h2>Projets et SAÉ</h2>
+        <p style="margin-bottom: 2rem; font-size: 1.1rem; text-align: center;">
+          Découvrez mes projets organisés par métier de la data science.
+        </p>
+
+        <!-- Boutons métiers -->
+        <div class="metiers-buttons">
+          <button class="metier-btn" data-role="analyst">📊 Data Analyst</button>
+          <button class="metier-btn" data-role="scientist">🔬 Data Scientist</button>
+          <button class="metier-btn" data-role="engineer">⚙️ Data Engineer</button>
+        </div>
+
+        <!-- Projets Data Analyst -->
+        <div class="projects" id="analyst-projects">
+          <div class="project-grid">
+            <div class="project-card" data-project="sae206">
+              <div class="project-image" style="background-image: url('images/Logo-bpgo.png')"></div>
+              <div class="project-content">
+                <h3>SAE 206 – Analyse BPGO</h3>
+                <div class="tools">
+                  <span class="tool-tag">Power BI</span>
+                  <span class="tool-tag">Data Viz</span>
+                  <span class="tool-tag">Analyse</span>
+                </div>
+                <p>Projet réalisé pour la Banque Populaire Grand Ouest : création d'un profil type des clients rentables avec analyse de données et visualisation.</p>
+              </div>
+            </div>
+            
+            <div class="project-card" data-project="sae402a">
+              <div class="project-image" style="background-image: url('images/powerbi_example.png')"></div>
+              <div class="project-content">
+                <h3>SAÉ 4.02 – Analyse multivariée</h3>
+                <div class="tools">
+                  <span class="tool-tag">R</span>
+                  <span class="tool-tag">Power BI</span>
+                  <span class="tool-tag">Statistiques</span>
+                </div>
+                <p>Conception et automatisation de reportings, analyse multivariée exploratoire avec méthodes statistiques avancées.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Projets Data Scientist -->
+        <div class="projects" id="scientist-projects">
+          <div class="project-grid">
+            <div class="project-card" data-project="sae202">
+              <div class="project-image" style="background-image: url('images/r_visualization.png')"></div>
+              <div class="project-content">
+                <h3>SAE 202 – Estimation statistique</h3>
+                <div class="tools">
+                  <span class="tool-tag">R</span>
+                  <span class="tool-tag">Statistiques</span>
+                  <span class="tool-tag">Modélisation</span>
+                </div>
+                <p>Étude de l'importance de la marge d'erreur dans l'estimation des paramètres de la population pour la restitution des résultats d'un sondage.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Projets Data Engineer -->
+        <div class="projects" id="engineer-projects">
+          <div class="project-grid">
+            <div class="project-card" data-project="sae201">
+              <div class="project-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%)"></div>
+              <div class="project-content">
+                <h3>SAE 201 – Conception, implémentation et alimentation d'une base de données relationnelle</h3>
+                <div class="tools">
+                  <span class="tool-tag">Access</span>
+                  <span class="tool-tag">SQL</span>
+                  <span class="tool-tag">Modélisation</span>
+                </div>
+                <p>Conception et développement d'une base de données pour la gestion d'une médiathèque, incluant la création de tables, vues, formulaires et requêtes complexes.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Détail projet -->
+        <div class="project-detail" id="detail"></div>
+      </section>
+
+      <!-- Section Stage -->
+      <section id="stage" class="section">
+        <h2>Stage en Entreprise</h2>
+        <div class="stage-content">
+          <div class="stage-grid">
+            <div class="stage-info">
+              <h4>🏢 Contexte</h4>
+              <p>
+                <strong>Entreprise :</strong> Devoteam<br>
+                <strong>Client :</strong> L'Oréal<br>
+                <strong>Durée :</strong> 16 semaines<br>
+                <strong>Poste :</strong> Data Engineer / Développeur
+              </p>
+              
+              <h4>🎯 Missions réalisées</h4>
+              <p>
+                • <strong>Migration de données :</strong> Transfert et transformation de bases de données legacy vers des systèmes modernes<br>
+                • <strong>Développement d'applications :</strong> Création d'outils métier pour l'analyse et la visualisation de données<br>
+                • <strong>Automatisation :</strong> Mise en place de pipelines de données automatisés<br>
+                • <strong>Optimisation :</strong> Amélioration des performances des requêtes et traitements
+              </p>
+            </div>
+            
+            <div class="stage-info">
+              <h4>🛠️ Outils et technologies</h4>
+              <p>
+                • <strong>Langages :</strong> R, SQL, Python<br>
+                • <strong>Bases de données :</strong> SQL Server, Oracle<br>
+                • <strong>Visualisation :</strong> Power BI, Shiny<br>
+                • <strong>Outils :</strong> Git, Azure DevOps
+              </p>
+              
+              <h4>📈 Résultats obtenus</h4>
+              <p>
+                • Réduction de 60% du temps de traitement des données<br>
+                • Migration réussie de 15 bases de données<br>
+                • Développement de 3 applications métier<br>
+                • Formation de 10 utilisateurs finaux
+              </p>
+            </div>
+          </div>
+          
+          <div class="competences-liees">
+            <h4>🎯 Compétences du PN mobilisées</h4>
+            <div class="competences-tags">
+              <span class="competence-tag">Collecter</span>
+              <span class="competence-tag">Traiter</span>
+              <span class="competence-tag">Analyser</span>
+              <span class="competence-tag">Valoriser</span>
+              <span class="competence-tag">Assurer</span>
+              <span class="competence-tag">Communiquer</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section Perspectives -->
+      <section id="perspectives" class="section">
+        <div class="perspectives">
+          <h3>🚀 Perspectives d'évolution</h3>
+          <p>Mes objectifs pour la suite de ma formation et ma carrière professionnelle.</p>
+          
+          <div class="perspectives-grid">
+            <div class="perspective-card">
+              <h4>📚 BUT 3 - Approfondissement</h4>
+              <p>Spécialisation en machine learning avancé et big data. Maîtrise de Python, Spark et des architectures cloud.</p>
+            </div>
+            
+            <div class="perspective-card">
+              <h4>🎯 Compétences à renforcer</h4>
+              <p>Deep learning, traitement du langage naturel, architectures distribuées et DevOps pour la data science.</p>
+            </div>
+            
+            <div class="perspective-card">
+              <h4>💼 Objectifs professionnels</h4>
+              <p>Devenir Data Scientist senior, spécialisée dans l'IA appliquée aux problématiques business complexes.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    // Données des projets
+    const projectDetails = {
+      sae206: {
+        title: "SAE 206 – Analyse de données, reporting et datavisualisation",
+        image: "images/Logo-bpgo.png",
+        content: `
+          <div class="detail-content">
+            <div class="detail-t<ext">
+              <p><strong>Rôle :</strong> Data Analyst</p>
+              <p><strong>Outils :</strong> Power BI, Excel, Analyse statistique</p>
+              <p><strong>Contexte :</strong> Projet réalisé en partenariat avec la Banque Populaire Grand Ouest. L'objectif était de trouver un profil type des clients de la banque qui rapportent de l'argent frais.</p>
+              <p><strong>Équipe :</strong> 7 personnes (Romane Lequeux, Loris Bouet, Alice Leblanc, Louison Guillot, Quentin Cherouze, Edgar Pateloux et moi-même)</p>
+              <p><strong>Mes contributions principales :</strong></p>
+              <ul>
+                <li>Participation à l'analyse de variables pour identifier les profils clients</li>
+                <li>Rédaction du rapport final et création de la présentation PowerPoint</li>
+                <li>Réalisation du poster de présentation</li>
+                <li>Conseil et support pour la création du dashboard Power BI</li>
+              </ul>
+              <p><strong>Livrables :</strong> Rapport écrit, outil Power BI avec notice d'utilisation, 2 soutenances orales, poster</p>
+              <p><strong>Temps investi :</strong> 100h personnelles sur 700h équipe</p>
+            </div>
+            <div class="detail-image">
+              <img src="images/Logo-bpgo.png" alt="BPGO">
+            </div>
+          </div>
+          <div class="competences-liees">
+            <h4>🎯 Compétences du PN développées</h4>
+            <div class="competences-tags">
+              <span class="competence-tag">Traiter</span>
+              <span class="competence-tag">Analyser</span>
+              <span class="competence-tag">Valoriser</span>
+              <span class="competence-tag">Communiquer</span>
+            </div>
+          </div>
+        `,
+        competences: ["Traiter", "Analyser", "Valoriser", "Communiquer"]
+      },
+      sae402a: {
+        title: "SAÉ 4.02 : Reporting d'une analyse multivariée (Data Analyst)",
+        image: "images/powerbi_example.png",
+        content: `
+          <div class="detail-content">
+            <div class="detail-text">
+              <p><strong>Rôle :</strong> Data Analyst</p>
+              <p><strong>Outils :</strong> R, Power BI, FactoMineR, corrplot</p>
+              <p><strong>Contexte :</strong> Analyse multivariée de données clients pour segmentation et ciblage marketing avec automatisation des reportings.</p>
+              <p><strong>Techniques appliquées :</strong></p>
+              <ul>
+                <li>Analyse en Composantes Principales (ACP)</li>
+                <li>Classification Ascendante Hiérarchique (CAH)</li>
+                <li>K-means clustering</li>
+                <li>Analyse des correspondances multiples (ACM)</li>
+                <li>Création de reportings automatisés</li>
+              </ul>
+              <p><strong>Impact :</strong> Identification de segments clients distincts permettant une stratégie marketing personnalisée avec reportings automatisés pour le suivi.</p>
+            </div>
+            <div class="detail-image">
+              <img src="images/powerbi_example.png" alt="Analyse multivariée">
+            </div>
+          </div>
+          <div class="competences-liees">
+            <h4>🎯 Compétences du PN développées</h4>
+            <div class="competences-tags">
+              <span class="competence-tag">Traiter</span>
+              <span class="competence-tag">Analyser</span>
+              <span class="competence-tag">Valoriser</span>
+              <span class="competence-tag">Communiquer</span>
+            </div>
+          </div>
+        `,
+        competences: ["Traiter", "Analyser", "Valoriser", "Communiquer"]
+      },
+      sae202: {
+        title: "SAE 202 – Estimation par échantillonnage",
+        image: "images/r_visualization.png",
+        content: `
+          <div class="detail-content">
+            <div class="detail-text">
+              <p><strong>Rôle :</strong> Data Scientist</p>
+              <p><strong>Outils :</strong> R, RStudio, Notebooks</p>
+              <p><strong>Contexte :</strong> Étude de l'importance de la marge d'erreur dans l'estimation des paramètres de la population pour la restitution des résultats d'un sondage. Réalisation d'observations sur une partie de la population afin de tirer des conclusions sur l'ensemble de la population.</p>
+              <p><strong>Équipe :</strong> 2 personnes (Romane Lequeux et moi-même)</p>
+              <p><strong>Mes contributions principales :</strong></p>
+              <ul>
+                <li>Création des notebooks sur RStudio</li>
+                <li>Participation active au remplissage des notebooks en binôme</li>
+                <li>Contribution aux réponses des questions sur la feuille papier</li>
+              </ul>
+              <p><strong>Livrables :</strong> Notebooks RStudio, feuille de questions/réponses, contrôle écrit</p>
+              <p><strong>Temps investi :</strong> 7h30 personnelles sur 11h équipe</p>
+              <p><strong>Compétences développées :</strong> Analyse et compréhension des résultats, choix du modèle approprié à une situation, analyse statistique des données.</p>
+            </div>
+            <div class="detail-image">
+              <img src="images/r_visualization.png" alt="Analyses statistiques R">
+            </div>
+          </div>
+          <div class="competences-liees">
+            <h4>🎯 Compétences du PN développées</h4>
+            <div class="competences-tags">
+              <span class="competence-tag">Analyser</span>
+              <span class="competence-tag">Communiquer</span>
+            </div>
+          </div>
+        `,
+        competences: ["Analyser", "Communiquer"]
+      },
+      sae201: {
+        title: "SAE 201 – Conception, implémentation et alimentation d'une base de données relationnelle",
+        image: null,
+        content: `
+          <div class="detail-content">
+            <div class="detail-text">
+              <p><strong>Rôle :</strong> Data Engineer</p>
+              <p><strong>Outils :</strong> Microsoft Access, Ibeasy+, Looping, SQL</p>
+              <p><strong>Contexte :</strong> Conception et développement d'une base de données relationnelle pour la gestion d'une médiathèque, incluant la création de tables, vues, formulaires et requêtes complexes.</p>
+              <p><strong>Mes contributions principales :</strong></p>
+              <ul>
+                <li>Création de la base Ibeasy et assemblage avec Looping sur Access</li>
+                <li>Conception de 6 requêtes complexes</li>
+                <li>Participation à la création du dictionnaire de données et du graphe des dépendances fonctionnelles</li>
+                <li>Mise en place des contraintes dans la base de données Access</li>
+                <li>Participation à la rédaction et relecture du rapport</li>
+              </ul>
+              <p><strong>Livrables :</strong> Dossier de réalisation (rapport MS Word/PDF), Dictionnaire des données, Graphe des dépendances fonctionnelles, Modèle conceptuel des données, Schémas relationnel en 3NF, scripts SQL (création tables, index, contraintes, vues, requêtes, alimentation, migration), procédure d'importation CSV/XLSX, Base de données MS Access (DAO/ADO).</p>
+              <p><strong>Compétences développées :</strong> Approfondissement des compétences en bases de données (Access, Ibeasy+, Looping), travail en équipe sur projet long, rédaction de rapports, SQL.</p>
+            </div>
+            <div class="detail-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem;">
+              🗄️ Base de Données
+            </div>
+          </div>
+          <div class="competences-liees">
+            <h4>🎯 Compétences du PN développées</h4>
+            <div class="competences-tags">
+              <span class="competence-tag">Collecter</span>
+              <span class="competence-tag">Traiter</span>
+              <span class="competence-tag">Assurer</span>
+            </div>
+          </div>
+        `,
+        competences: ["Collecter", "Traiter", "Assurer"]
+      }
+    };
+
+    // Navigation
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = e.target.getAttribute('href').substring(1);
+        
+        // Update active nav item
+        document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+        e.target.classList.add('active');
+        
+        // Show target section
+        document.querySelectorAll('.section').forEach(section => {
+          section.classList.remove('visible');
+        });
+        document.getElementById(target).classList.add('visible');
+        
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+
+    // Métiers buttons
+    const metierBtns = document.querySelectorAll('.metier-btn');
+    const projectsDivs = {
+      analyst: document.getElementById('analyst-projects'),
+      scientist: document.getElementById('scientist-projects'),
+      engineer: document.getElementById('engineer-projects')
+    };
+    const detailDiv = document.getElementById('detail');
+
+    function hideAllProjects() {
+      Object.values(projectsDivs).forEach(div => div.classList.remove('visible'));
+      detailDiv.classList.remove('visible');
+      detailDiv.innerHTML = '';
+      metierBtns.forEach(btn => btn.classList.remove('active'));
+    }
+
+    metierBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        hideAllProjects();
+        btn.classList.add('active');
+        const role = btn.getAttribute('data-role');
+        projectsDivs[role].classList.add('visible');
+      });
+    });
+
+    // Project details
+    Object.entries(projectsDivs).forEach(([role, div]) => {
+      div.addEventListener('click', (e) => {
+        const projectCard = e.target.closest('.project-card');
+        if (projectCard) {
+          const projectId = projectCard.getAttribute('data-project');
+          const project = projectDetails[projectId];
+          if (project) {
+            hideAllProjects();
+            detailDiv.innerHTML = `
+              <a href="#" class="back-btn">← Retour aux projets</a>
+              <h3>${project.title}</h3>
+              ${project.content}
+            `;
+            detailDiv.classList.add('visible');
+
+            detailDiv.querySelector('.back-btn').onclick = (e) => {
+              e.preventDefault();
+              hideAllProjects();
+              projectsDivs[role].classList.add('visible');
+              document.querySelector(`.metier-btn[data-role="${role}"]`).classList.add('active');
+            };
+          }
+        }
+      });
+    });
+
+    // Scroll animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-in');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.competence-card, .project-card').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Initialize first view
+    document.addEventListener('DOMContentLoaded', () => {
+      // Show analyst projects by default when visiting projects section
+      const firstMetierBtn = document.querySelector('.metier-btn[data-role="analyst"]');
+      if (firstMetierBtn) {
+        firstMetierBtn.click();
+      }
+    });
+  </script>
+</body>
+</html>
+
